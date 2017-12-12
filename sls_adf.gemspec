@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors       = ['Toh Weiqing']
   s.email         = ['hello@estl.moe']
 
-  s.summary       = %q{Ruby client library for SLS (in progress).}
-  s.description   = %q{Ruby client library for SLS's Application Development Framework (in progress).}
+  s.summary       = 'Ruby client library for SLS (in progress).'
+  s.description   = "Ruby client library for SLS's Application Development Framework (in progress)."
   s.homepage      = 'https://github.com/moexmen/sls-adf'
   s.license       = 'MIT'
 

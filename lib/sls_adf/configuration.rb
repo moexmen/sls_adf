@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Provides configuration for the sls_adf gem.
 module SlsAdf
   class << self

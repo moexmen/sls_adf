@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlsAdf
-  VERSION = "0.0.0.pre"
+  VERSION = '0.0.0.pre'
 end
