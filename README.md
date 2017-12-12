@@ -12,11 +12,11 @@ Requires Ruby 2.4+.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'adf_ruby'
+gem 'sls_adf'
 ```
 
-Configur the gem in the following manner:
-(For rails, you may put it in `config/initializers/sls_adf.rb`)
+Configure the gem in the following manner:
+(Can be placed in `config/initializers/` folder for Rails apps)
 
 ```ruby
 SlsAdf.configure do |c|
