@@ -1,4 +1,4 @@
-# SLS ADF - Ruby Client Library [![Build Status](https://travis-ci.org/moexmen/sls_adf.svg?branch=master)](https://travis-ci.org/moexmen/sls_adf)
+# SLS ADF - Ruby Client Library [![Build Status](https://travis-ci.org/moexmen/sls_adf.svg?branch=master)](https://travis-ci.org/moexmen/sls_adf) [![Maintainability](https://api.codeclimate.com/v1/badges/5d7c2801d4a37ecf8cdf/maintainability)](https://codeclimate.com/github/moexmen/sls_adf/maintainability)
 
 Ruby support for GraphQL API calls to MOE's Student Learning Space.
 This includes a few functionalities:

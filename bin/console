@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
-require "bundler/setup"
+require 'bundler/setup'
 
 # Load environment variables for configuration
 require 'dotenv'
 Dotenv.load
 
 # Configure Gem
-require "sls_adf"
+require 'sls_adf'
 SlsAdf.configure do |config|
   config.graphql_url = ENV['GRAPHQL_URL']
   config.get_token_url = ENV['GET_TOKEN_URL']
@@ -15,8 +15,8 @@ SlsAdf.configure do |config|
 end
 
 # (If you use this, don't forget to add pry to your Gemfile!)
-# require "pry"
+# require 'pry'
 # Pry.start
 
-require "irb"
+require 'irb'
 IRB.start(__FILE__)

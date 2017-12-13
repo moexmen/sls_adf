@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors       = ['Toh Weiqing']
   s.email         = ['hello@estl.moe']
 
-  s.summary       = %q{Ruby client library for SLS (in progress).}
-  s.description   = %q{Ruby client library for SLS's Application Development Framework (in progress).}
+  s.summary       = 'Ruby client library for SLS (in progress).'
+  s.description   = "Ruby client library for SLS's Application Development Framework (in progress)."
   s.homepage      = 'https://github.com/moexmen/sls-adf'
   s.license       = 'MIT'
 
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
   s.bindir        = 'exe'
   s.executables   = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
   s.require_paths = ['lib']
+  s.required_ruby_version = '>= 2.4.0'
 
   s.add_dependency 'graphql-client', '~>0.12'
   s.add_dependency 'http', '~>3.0'
@@ -38,4 +39,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '~> 3.0'
   s.add_development_dependency 'dotenv', '~> 2.2'
   s.add_development_dependency 'rdoc'
+  s.add_development_dependency 'simplecov'
 end
