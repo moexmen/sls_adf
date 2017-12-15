@@ -5,11 +5,13 @@ RSpec.describe SlsAdf::Configuration do
     expect(subject).not_to be nil
   end
 
-  it 'initialises the paramters' do
-    expect(subject.graphql_url).not_to be_nil
-    expect(subject.get_token_url).not_to be_nil
-    expect(subject.client_id).not_to be_nil
-    expect(subject.client_secret).not_to be_nil
+  describe 'sls_adf_helper file' do
+    it 'initialises the paramters' do
+      expect(subject.graphql_url).not_to be_nil
+      expect(subject.get_token_url).not_to be_nil
+      expect(subject.client_id).not_to be_nil
+      expect(subject.client_secret).not_to be_nil
+    end
   end
 
   describe 'when editing parameters' do
