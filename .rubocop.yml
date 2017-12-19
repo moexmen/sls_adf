@@ -1,2 +1,18 @@
 AllCops:
   TargetRubyVersion: 2.4
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - spec/**/*
+
+Metrics/LineLength:
+  Max: 120
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Exclude:
+    - spec/**/*
+
+Layout/DotPosition:
+  EnforcedStyle: trailing

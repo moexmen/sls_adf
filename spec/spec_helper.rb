@@ -1,8 +1,7 @@
-# frozen_string_literal: true
-
 require 'coverage_helper'
 
 require 'bundler/setup'
+require 'webmock/rspec'
 require 'sls_adf'
 
 # Load all files within the support folder
