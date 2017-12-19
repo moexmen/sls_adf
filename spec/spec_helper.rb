@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-require 'simplecov'
-SimpleCov.start
+require 'coverage_helper'
 
 require 'bundler/setup'
 require 'sls_adf'
-require 'sls_adf_helper'
+
+# Load all files within the support folder
+Dir[__dir__ + '/support/**/*'].each { |f| require f if File.file?(f) }
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
