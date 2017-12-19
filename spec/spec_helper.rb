@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'coverage_helper'
 
 require 'bundler/setup'

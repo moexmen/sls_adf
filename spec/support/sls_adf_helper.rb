@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This helper helps to set the initial values for the gem, and exposes these
 # values as variables for use in rspec.
 
