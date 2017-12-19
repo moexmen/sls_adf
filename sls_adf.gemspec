@@ -32,12 +32,12 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.4.0'
 
   s.add_dependency 'graphql-client', '~>0.12'
-  s.add_dependency 'http', '~>3.0'
+  s.add_dependency 'typhoeus', '~>1.3'
 
   s.add_development_dependency 'bundler', '~> 1.16'
-  s.add_development_dependency 'rake', '~> 10.0'
-  s.add_development_dependency 'rspec', '~> 3.0'
   s.add_development_dependency 'dotenv', '~> 2.2'
+  s.add_development_dependency 'rake', '~> 10.0'
   s.add_development_dependency 'rdoc'
+  s.add_development_dependency 'rspec', '~> 3.0'
   s.add_development_dependency 'simplecov'
 end
