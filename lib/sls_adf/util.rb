@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'sls_adf/util/token'
+require 'sls_adf/util/adapter'
 
 module SlsAdf
   module Util
