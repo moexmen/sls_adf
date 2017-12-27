@@ -3,6 +3,7 @@
 require 'sls_adf/version'
 require 'sls_adf/configuration'
 require 'sls_adf/util'
+require 'sls_adf/base'
 require 'graphql/client'
 
 module SlsAdf #:nodoc:
