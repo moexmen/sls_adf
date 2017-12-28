@@ -12,7 +12,7 @@ module SlsAdf #:nodoc:
   end
 
   def self.schema
-    @schema ||= GraphQL::Client.load_schema(adapter)
+    @schema ||= GraphQL::Client.load_schema('lib/sls_adf/schema/schema.json')
   end
 
   def self.client

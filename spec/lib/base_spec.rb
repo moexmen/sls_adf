@@ -8,6 +8,13 @@ RSpec.describe SlsAdf::Base do
     end
   end
 
+  # Modify schema to load from the GraphQL endpoint.
+  module SlsAdf
+    def self.schema
+      @schema ||= GraphQL::Client.load_schema(adapter)
+    end
+  end
+
   describe '.execute_query' do
     subject { DummyBase.test_execute_query(template, variables) }
     let(:character_variables) { { 'id' => '1001' } }
@@ -24,7 +31,7 @@ RSpec.describe SlsAdf::Base do
       GRAPHQL
 
       GetStarship = SlsAdf.client.parse <<~'GRAPHQL'
-        query ($id: ID!) {
+        query($id: ID!) {
           starship(id: $id) {
             name
             length
