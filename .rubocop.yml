@@ -1,6 +1,9 @@
 AllCops:
   TargetRubyVersion: 2.4
 
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
 Metrics/BlockLength:
   Enabled: true
   Exclude:
@@ -13,6 +16,3 @@ Style/FrozenStringLiteralComment:
   Enabled: true
   Exclude:
     - spec/**/*
-
-Layout/DotPosition:
-  EnforcedStyle: trailing
