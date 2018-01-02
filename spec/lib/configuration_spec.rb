@@ -28,6 +28,7 @@ RSpec.describe SlsAdf::Configuration do
         config.client_secret = new_client_secret
       end
     end
+    after { SlsAdf.initialise_sls_adf_gem! }
 
     it 'changes the parameters when accessed again' do
       expect(subject.graphql_url).to eq new_graphql_url
