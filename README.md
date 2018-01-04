@@ -1,4 +1,6 @@
-# SLS ADF - Ruby Client Library [![Build Status](https://travis-ci.org/moexmen/sls_adf.svg?branch=master)](https://travis-ci.org/moexmen/sls_adf) [![Maintainability](https://api.codeclimate.com/v1/badges/5d7c2801d4a37ecf8cdf/maintainability)](https://codeclimate.com/github/moexmen/sls_adf/maintainability)
+[![Build Status](https://travis-ci.org/moexmen/sls_adf.svg?branch=master)](https://travis-ci.org/moexmen/sls_adf) [![Maintainability](https://api.codeclimate.com/v1/badges/5d7c2801d4a37ecf8cdf/maintainability)](https://codeclimate.com/github/moexmen/sls_adf/maintainability)
+
+# SLS ADF - Ruby Client Library
 
 Ruby support for GraphQL API calls to MOE's Student Learning Space.
 This includes a few functionalities:
@@ -16,7 +18,7 @@ gem 'sls_adf'
 ```
 
 Configure the gem in the following manner:
-(Can be placed in `config/initializers/` folder for Rails apps)
+(This can be placed in `config/initializers/` for Rails applications)
 
 ```ruby
 SlsAdf.configure do |c|
@@ -32,25 +34,52 @@ And then execute:
     $ bundle
 
 ## Usage
-To be updated
+
+`sls_adf` provides ruby methods which can be used to make GraphQL calls to SLS ADF.
+To use, follow the installation instructions above and configure the necessary details.
+
+```ruby
+# Queries
+response = SlsAdf::Query.user('id')
+response = SlsAdf::Query.context('uuid')
+response = SlsAdf::Query.subject_group('uuid')
+response = SlsAdf::Query.assignment('uuid')
+response = SlsAdf::Query.task('uuid')
+
+# Mutations
+response = SlsAdf::Mutation.create_assignment(assignment_input)
+response = SlsAdf::Mutation.update_assignment(uuid, assignment_input)
+response = SlsAdf::Mutation.delete_assignment(uuid)
+response = SlsAdf::Mutation.update_task(uuid, task_input)
+response = SlsAdf::Mutation.create_notification(notification_input)
+```
 
 ## Customization
-To be updated
+
+`sls_adf` uses Github's [graphql-client](https://github.com/github/graphql-client) for
+graphql functionality, and [Typhoeus](https://github.com/typhoeus/typhoeus) to make
+http calls.
+
+Two classes, `Adapter` (`SlsAdf::Util::Adapter`) and `Token` (`SlsAdf::Util::Token`) are
+defined in this gem to support the most naive use case. These classes are designed to be
+extended or replaced to support different use cases.
+
+#### Customised GraphQL Calls
+
+`sls_adf` provides pre-defined GraphQL calls to ADF. Should you require a different call,
+you may define new GraphQL queries, mutations or fragments. Thereafter, you can construct
+your own class that uses these templates and inherits from `SlsAdf::Base`.
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies.
-
-To test, you can run `rake spec` or `bundle exec rspec`.
-
-Run `bin/console` for an interactive prompt. You have to modify the
-`.env` file to test the gem's functions.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Key Commands:
+ - `bin/setup`: Install dependencies and copy `.env` file.
+ - `bin/console`: Run an interactive prompt (requires configuration on .`env` file)
+ - `rake spec` or `bundle exec rspec`: Run tests.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on [GitHub](https://github.com/moexmen/adf_ruby).
+Bug reports and pull requests are welcome on [GitHub](https://github.com/moexmen/sls_adf).
 
 ## License
 
