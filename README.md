@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.org/moexmen/sls_adf.svg?branch=master)](https://travis-ci.org/moexmen/sls_adf) [![Maintainability](https://api.codeclimate.com/v1/badges/5d7c2801d4a37ecf8cdf/maintainability)](https://codeclimate.com/github/moexmen/sls_adf/maintainability)
+[![Gem Version](https://badge.fury.io/rb/sls_adf.svg)](https://badge.fury.io/rb/sls_adf)
+[![Build Status](https://travis-ci.org/moexmen/sls_adf.svg?branch=master)](https://travis-ci.org/moexmen/sls_adf)
+[![Inline docs](http://inch-ci.org/github/moexmen/sls_adf.svg?branch=master)](http://inch-ci.org/github/moexmen/sls_adf)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5d7c2801d4a37ecf8cdf/maintainability)](https://codeclimate.com/github/moexmen/sls_adf/maintainability)
 
 # SLS ADF - Ruby Client Library
 
