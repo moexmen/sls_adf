@@ -6,11 +6,11 @@ RSpec::Core::RakeTask.new(:spec)
 task default: :spec
 
 require 'rdoc/task'
-desc 'Generate documentation for the userstamp plugin.'
+desc 'Generate documentation for the SLS ADF gem.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'SLS ADF'
   rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('Readme.rdoc', 'CHANGELOG', 'LICENSE')
+  rdoc.rdoc_files.include('README.md', 'LICENSE')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

@@ -11,15 +11,15 @@ module SlsAdf
     class << self
       # Makes a call to create assignment. assignment_input has the following shape:
       #
-      # {
-      #   title: 'Test',
-      #   start: '2017-11-30T10:15:30+01:00', #ISO8601 format
-      #   end: '2017-12-30T12:15:30Z', #ISO8601 format
-      #   createdBy: 'MOE-1234',
-      #   type: 'QUIZ',
-      #   subjectGroupUuid: 'subject-group-uuid',
-      #   assignees: ['MOE-1235', 'MOE-1236', ...]
-      # }
+      #   {
+      #     title: 'Test',
+      #     start: '2017-11-30T10:15:30+01:00', #ISO8601 format
+      #     end: '2017-12-30T12:15:30Z', #ISO8601 format
+      #     createdBy: 'MOE-1234',
+      #     type: 'QUIZ',
+      #     subjectGroupUuid: 'subject-group-uuid',
+      #     assignees: ['MOE-1235', 'MOE-1236', ...]
+      #   }
       #
       # @param[Hash] assignment_input
       # @return [GraphQL::Client::Response] The response object
@@ -48,7 +48,7 @@ module SlsAdf
       end
 
       # Makes a call to update the task. Task status is one of the following:
-      #  - 'NEW', 'IN_PROGRESS', 'COMPLETED'
+      #  'NEW', 'IN_PROGRESS', 'COMPLETED'
       #
       # @param[String] uuid UUID of task to be updated
       # @param[String] status Status of the task to be updated
@@ -60,14 +60,14 @@ module SlsAdf
 
       # Makes a call to create a notification. notification_input has the following shape:
       #
-      # {
-      #   message: 'Assignment 1 has started!',
-      #   scope: 'SUBJECT_GROUP', #
-      #   scopeId: '', #
-      #   eventType: '', #
-      #   eventTypeId: '' # UUID,
-      #   receipient: ['', '', ...] # User ID.
-      # }
+      #   {
+      #     message: 'Assignment 1 has started!',
+      #     scope: 'SUBJECT_GROUP', #
+      #     scopeId: '', #
+      #     eventType: '', #
+      #     eventTypeId: '' # UUID,
+      #     receipient: ['', '', ...] # User ID.
+      #   }
       #
       # @param[Hash] notification_input
       # @return [GraphQL::Client::Response] The response object
