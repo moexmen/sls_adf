@@ -69,9 +69,15 @@ extended or replaced to support different use cases.
 
 #### Customised GraphQL Calls
 
-`sls_adf` provides pre-defined GraphQL calls to ADF. Should you require a different call,
-you may define new GraphQL queries, mutations or fragments. Thereafter, you can construct
-your own class that uses these templates and inherits from `SlsAdf::Base`.
+`sls_adf` provides pre-defined GraphQL calls to ADF. Should you require other calls,
+you may:
+
+1. Declare your custom GraphQL queries or mutations using the
+   [graphql-client DSL](https://github.com/github/graphql-client#defining-queries),
+   then execute them using `SlsAdf.query` with the appropriate variables.
+2. For easy reuse, create a new class that inherits from `SlsAdf::Base` to wrap your custom
+   queries, mutations or fragments.
+
 
 ## Development
 
