@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sls_adf (0.0.1)
+    sls_adf (0.0.2)
       graphql-client (~> 0.12)
       typhoeus (~> 1.3)
 
