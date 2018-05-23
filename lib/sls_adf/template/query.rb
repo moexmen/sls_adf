@@ -6,8 +6,8 @@ module SlsAdf
   module Template
     module Query
       User = SlsAdf.client.parse <<~'GRAPHQL'
-        query($id: ID!, $first: Int = 2) {
-          user(id: $id) {
+        query($uuid: UUID!, $first: Int = 2) {
+          user(uuid: $uuid) {
             ...SlsAdf::Template::Fragment::User::Fields
             subjectGroups(first: $first) {
               ...SlsAdf::Template::Fragment::SubjectGroup::Fields

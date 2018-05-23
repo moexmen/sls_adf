@@ -5,13 +5,13 @@ module SlsAdf
     module Fragment
       User = SlsAdf.client.parse <<~'GRAPHQL'
         fragment Fields on User {
-          id
+          uuid
           name
           role
         }
 
         fragment StudentFields on User {
-          id
+          uuid
           name
           classSerialNo
           level
