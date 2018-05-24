@@ -16,7 +16,7 @@
           "fields": [
             {
               "name": "context",
-              "description": "Retrieve context information via Context ID which provided by SLS <br/>\nVarious Scenarios:\nLaunch App from <Subject Group> page\nOpen <Assignment> page (from Assignment Listing page)\nOpen <Task> page (from either Dashboard or Notification)\n\nContext will be expired in 10 seconds.\n\nErrors:\nToken is invalid\nContext does not exist\nContext has expired\n",
+              "description": "Retrieve context information via Context ID which is provided by SLS\nVarious Scenarios:\n1. LAUNCH_APP: Launch App from <Subject Group> page\n2. LAUNCH_ASSIGNMENT: Open <Assignment> page (from Assignment Listing page)\n3. LAUNCH_TASK: Open <Task> page (from either Dashboard or Notification)\n\nContext will expire in 10 seconds.\n\nErrors:\n1. Authorization header is invalid\n2. Context does not exist\n3. Context has expired\n",
               "args": [
                 {
                   "name": "uuid",
@@ -43,17 +43,17 @@
             },
             {
               "name": "user",
-              "description": "Retrieve user information via user ID.\n\nErrors:\nToken is invalid\nUser does not exist\n\nApp is not installed for this User\n",
+              "description": "Retrieve user information via user ID.\n\nErrors:\n1. Authorization header is invalid\n2. User does not exist\n3. User is neither Teacher nor Student\n4. App is not installed for this User\n",
               "args": [
                 {
-                  "name": "id",
+                  "name": "uuid",
                   "description": "",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
                     "ofType": {
                       "kind": "SCALAR",
-                      "name": "ID",
+                      "name": "UUID",
                       "ofType": null
                     }
                   },
@@ -70,7 +70,7 @@
             },
             {
               "name": "subjectGroup",
-              "description": "Retrieve suject group information via subject group ID.\n\nErrors:\nToken is invalid\nSubject group does not exist\nApp is not installed for this subject group\n",
+              "description": "Retrieve subject group information via subject group UUID.\n\nErrors:\n1. Authorization header is invalid\n2. Subject group does not exist\n3. App is not installed for this subject group\n",
               "args": [
                 {
                   "name": "uuid",
@@ -97,7 +97,7 @@
             },
             {
               "name": "assignment",
-              "description": "",
+              "description": "Retrieve assignment information via the assignment UUID.\n\nErrors:\n1. Authorization header is invalid\n2. Assignment does not exist\n",
               "args": [
                 {
                   "name": "uuid",
@@ -124,7 +124,7 @@
             },
             {
               "name": "task",
-              "description": "",
+              "description": "Retrieve task information via the task UUID.\n\nErrors:\n1. Authorization header is invalid\n2. Task does not exist\n",
               "args": [
                 {
                   "name": "uuid",
@@ -168,23 +168,13 @@
           "possibleTypes": null
         },
         {
-          "kind": "SCALAR",
-          "name": "ID",
-          "description": "Built-in ID",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
           "kind": "OBJECT",
           "name": "Mutation",
           "description": "",
           "fields": [
             {
               "name": "createAssignment",
-              "description": "If a resource been assigned to multiple Subject Groups, multiple assignments will be created in SLS.",
+              "description": "Creates an assignment for a subject group.\nTo assign the same quiz/activity/assessment to multiple Subject Groups, create an assignment for each subject group.\n\nErrors:\n1. App can only create assignments in subject groups it is installed to.",
               "args": [
                 {
                   "name": "input",
@@ -211,7 +201,7 @@
             },
             {
               "name": "updateAssignment",
-              "description": "Update assignment: Leave the fields to null if unchanged.",
+              "description": "Updates the assignment: set fields to null if there are no changes to those assignment fields\nUse this mutation to add or remove tasks associated to this assignment.\n\nErrors:\n1. App can only update assignments that it has created.\n2. Once assignment has started, start and end dates cannot be changed.",
               "args": [
                 {
                   "name": "uuid",
@@ -252,7 +242,7 @@
             },
             {
               "name": "deleteAssignment",
-              "description": "Delete assignment: return the assignment UUID on success",
+              "description": "Delete assignment: assignment UUID is returned on successful deletion.\n\nErrors:\n1. App can only delete assignments that it has created.",
               "args": [
                 {
                   "name": "uuid",
@@ -279,7 +269,7 @@
             },
             {
               "name": "updateTask",
-              "description": "Update task status to reflect the task progress",
+              "description": "Update task status to reflect the task progress.",
               "args": [
                 {
                   "name": "uuid",
@@ -320,7 +310,7 @@
             },
             {
               "name": "createNotification",
-              "description": "Create Notification",
+              "description": "Create notification for SLS user.",
               "args": [
                 {
                   "name": "input",
@@ -356,11 +346,11 @@
         {
           "kind": "OBJECT",
           "name": "Context",
-          "description": "Context information which consist of user information and event information",
+          "description": "A context is provided to an App when a user launches the App from SLS.\nThe context provides information of the user who launches the App and from where it is launched.",
           "fields": [
             {
               "name": "user",
-              "description": "user information",
+              "description": "Information of the user who launches the App",
               "args": [
 
               ],
@@ -378,7 +368,7 @@
             },
             {
               "name": "event",
-              "description": "event information",
+              "description": "Information of where the App is launched",
               "args": [
 
               ],
@@ -405,11 +395,11 @@
         {
           "kind": "OBJECT",
           "name": "User",
-          "description": "User in the system, either Teacher or Student.",
+          "description": "A user in the system, who is either a teacher or student.",
           "fields": [
             {
-              "name": "id",
-              "description": "id of user, i.e., IAMS ID",
+              "name": "uuid",
+              "description": "UUId of user, unique identifier of user.",
               "args": [
 
               ],
@@ -418,7 +408,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "ID",
+                  "name": "UUID",
                   "ofType": null
                 }
               },
@@ -427,7 +417,7 @@
             },
             {
               "name": "name",
-              "description": "user's name, short name for Student",
+              "description": "Name of user.",
               "args": [
 
               ],
@@ -445,7 +435,7 @@
             },
             {
               "name": "role",
-              "description": "role of user, either Teacher or Student",
+              "description": "Role of user, either Teacher or Student.",
               "args": [
 
               ],
@@ -463,7 +453,7 @@
             },
             {
               "name": "level",
-              "description": "level that student is in, e.g. Secondary 1. Null for teacher.",
+              "description": "Level that student is in, e.g. Secondary 1. Applicable to student only (Null for teacher).",
               "args": [
 
               ],
@@ -477,7 +467,7 @@
             },
             {
               "name": "classSerialNo",
-              "description": "The index number of Student in his/her form class. Applicable to Student only",
+              "description": "The unique number issued to each student in his/her class. Applicable to student only (Null for teacher).",
               "args": [
 
               ],
@@ -491,7 +481,7 @@
             },
             {
               "name": "subjectGroups",
-              "description": "ACTIVE subject groups that user is in. If App is not installed for a subject group,\nthis subject group will not be inlcuded.\n\nFor Teacher, it is the SubjectGroups that this teacher teaching\nFor Student, it is the SubjectGroups that this student belongs to",
+              "description": "Active (ie. current year) subject groups that user is in.\nOnly returns subject groups that have this app installed.\nFor Teacher, it is the SubjectGroups that this teacher is teaching\nFor Student, it is the SubjectGroups to which this student belongs\n\nfirst: returns the first N subject groups, default to 20 if not specified.",
               "args": [
                 {
                   "name": "first",
@@ -516,6 +506,20 @@
                     "ofType": null
                   }
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "email",
+              "description": "Email of user",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -551,11 +555,11 @@
         {
           "kind": "OBJECT",
           "name": "SubjectGroup",
-          "description": "A group consists of teachers and students that taking the same subject",
+          "description": "A group of teachers and students from the same level and class taking a subject (e.g. Secondary 2-A Biology)",
           "fields": [
             {
               "name": "uuid",
-              "description": "UUID of group",
+              "description": "UUID of the SubjectGroup.",
               "args": [
 
               ],
@@ -573,7 +577,7 @@
             },
             {
               "name": "code",
-              "description": "Code of group",
+              "description": "Identifier of SubjectGroup for students and teachers, e.g. S1-A.",
               "args": [
 
               ],
@@ -591,7 +595,7 @@
             },
             {
               "name": "subject",
-              "description": "Subject of group: <e.g. English Language>",
+              "description": "Subject of the SubjectGroup: e.g. English Language.",
               "args": [
 
               ],
@@ -609,7 +613,7 @@
             },
             {
               "name": "level",
-              "description": "Level of Group: <e.g. Secondary 1>",
+              "description": "Level of the group: e.g. Secondary 1.",
               "args": [
 
               ],
@@ -627,7 +631,7 @@
             },
             {
               "name": "teachers",
-              "description": "Teachers that teach this group",
+              "description": "Teacher(s) who teaches this SubjectGroup.",
               "args": [
                 {
                   "name": "first",
@@ -654,7 +658,7 @@
             },
             {
               "name": "students",
-              "description": "Students that belong to this group",
+              "description": "Students who belong to this SubjectGroup.\n\nfirst: returns the first N students, default to 0 if not specified.\nsortField: sorts students by the field, default to class serial no. if not specified.",
               "args": [
                 {
                   "name": "first",
@@ -691,7 +695,7 @@
             },
             {
               "name": "assignments",
-              "description": "assignments that been assigned to this group's students",
+              "description": "Assignments that have been assigned to this group.\n\nfirst: returns the first N assignments, default to 0 if not specified.",
               "args": [
                 {
                   "name": "first",
@@ -727,11 +731,11 @@
         {
           "kind": "OBJECT",
           "name": "Assignment",
-          "description": "",
+          "description": "A piece of work that a teacher allocates/assigns to one or more students in a SubjectGroup.\nEach assignment has a collection of tasks, each corresponding to a student in the assignment.\nIt is not mandatory for all students in the SubjectGroup to have a task for each assignment.",
           "fields": [
             {
               "name": "uuid",
-              "description": "UUID for this assignment",
+              "description": "UUID of this assignment.",
               "args": [
 
               ],
@@ -749,7 +753,7 @@
             },
             {
               "name": "title",
-              "description": "title",
+              "description": "Title of assignment.",
               "args": [
 
               ],
@@ -767,7 +771,7 @@
             },
             {
               "name": "start",
-              "description": "start date and time, format: ISO_OFFSET_DATE_TIME, e.g.,2007-12-03T10:15:30+01:00",
+              "description": "Assignment start date and time, format: ISO_OFFSET_DATE_TIME, e.g.,2007-12-03T10:15:30+01:00.",
               "args": [
 
               ],
@@ -785,7 +789,7 @@
             },
             {
               "name": "end",
-              "description": "end date and time, format: ISO_OFFSET_DATE_TIME, e.g.,2007-12-03T10:15:30+01:00",
+              "description": "Assignment end date and time, format: ISO_OFFSET_DATE_TIME, e.g.,2007-12-03T10:15:30+01:00.",
               "args": [
 
               ],
@@ -799,7 +803,7 @@
             },
             {
               "name": "createdBy",
-              "description": "user who create this assignment",
+              "description": "User (ie. a teacher) who has created this assignment.",
               "args": [
 
               ],
@@ -817,7 +821,7 @@
             },
             {
               "name": "modifiedBy",
-              "description": "user who change this assignment",
+              "description": "User (ie. a teacher) who have made changes to this assignment.",
               "args": [
 
               ],
@@ -831,7 +835,7 @@
             },
             {
               "name": "type",
-              "description": "Type of the assignment",
+              "description": "Type of assignment, reflected in the SLS assignment page.",
               "args": [
 
               ],
@@ -849,7 +853,7 @@
             },
             {
               "name": "subjectGroup",
-              "description": "subject group that this resource been assigned to",
+              "description": "Subject group that this resource has been assigned to.",
               "args": [
 
               ],
@@ -867,7 +871,7 @@
             },
             {
               "name": "tasks",
-              "description": "List of tasks been generated",
+              "description": "List of tasks that have been generated.\n\nfirst: returns the first N tasks, default to 0 if not specified.",
               "args": [
                 {
                   "name": "first",
@@ -907,7 +911,7 @@
         {
           "kind": "SCALAR",
           "name": "DateTime",
-          "description": "Assignment start date, format: ISO_OFFSET_DATE_TIME, e.g.,2007-12-03T10:15:30+01:00",
+          "description": "Date and time format, format: ISO_OFFSET_DATE_TIME, e.g.,2007-12-03T10:15:30+08:00",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -917,11 +921,11 @@
         {
           "kind": "OBJECT",
           "name": "Task",
-          "description": "A basic unit of work required for one student.",
+          "description": "A basic unit of work for one student.\nEach task is part of an assignment, and tracks the progress of the student's work.",
           "fields": [
             {
               "name": "uuid",
-              "description": "UUID for this task",
+              "description": "UUID of this task.",
               "args": [
 
               ],
@@ -939,7 +943,7 @@
             },
             {
               "name": "title",
-              "description": "title",
+              "description": "Title of assignment that this task is associated to.",
               "args": [
 
               ],
@@ -957,7 +961,7 @@
             },
             {
               "name": "start",
-              "description": "start date and time",
+              "description": "Task start date and time (same as assignment), format: ISO_OFFSET_DATE_TIME, e.g.,2007-12-03T10:15:30+08:00.",
               "args": [
 
               ],
@@ -975,7 +979,7 @@
             },
             {
               "name": "end",
-              "description": "end date and time",
+              "description": "Task end date and time (same as assignment), format: ISO_OFFSET_DATE_TIME, e.g.,2007-12-03T10:15:30+08:00.",
               "args": [
 
               ],
@@ -989,7 +993,7 @@
             },
             {
               "name": "createdBy",
-              "description": "user who create this task",
+              "description": "User (ie. teacher) who has created this task.",
               "args": [
 
               ],
@@ -1007,7 +1011,7 @@
             },
             {
               "name": "assignee",
-              "description": "student who own this task",
+              "description": "User (ie. student) assigned to this task.",
               "args": [
 
               ],
@@ -1025,7 +1029,7 @@
             },
             {
               "name": "subject",
-              "description": "Subject Name",
+              "description": "Subject of the task assigned.",
               "args": [
 
               ],
@@ -1043,7 +1047,7 @@
             },
             {
               "name": "status",
-              "description": "Status of this task, default is NEW",
+              "description": "Status of this task, default is NEW.",
               "args": [
 
               ],
@@ -1070,11 +1074,11 @@
         {
           "kind": "OBJECT",
           "name": "Notification",
-          "description": "",
+          "description": "A notification is a message for a specific SLS user, with a message to provide information.\nThe notification can be clickable if the eventType and eventTypeId is provided.\nIf both eventType and eventTypeId are not provided, the notification is not clickable.",
           "fields": [
             {
               "name": "uuid",
-              "description": "Notification uuid",
+              "description": "UUID of the notification.",
               "args": [
 
               ],
@@ -1092,7 +1096,7 @@
             },
             {
               "name": "message",
-              "description": "Notification message",
+              "description": "Notification message.",
               "args": [
 
               ],
@@ -1110,7 +1114,7 @@
             },
             {
               "name": "scope",
-              "description": "Notification scope, i.e., this notification is targeted to a subject group, or a school",
+              "description": "Scope in which notification is sent in the context from. Examples include global, school or subject group.\nThis is for future extensibility and SUBJECT_GROUP should be selected.",
               "args": [
 
               ],
@@ -1128,7 +1132,7 @@
             },
             {
               "name": "scopeId",
-              "description": "Scope id, if scope is SUBJECT_GROUP, the scope id is subject group uuid; if scope is SCHOOL, the scope id is school code",
+              "description": "Id of scope (for NotificationScope of SUBJECT_GROUP, this should be set to SubjectGroup UUID).",
               "args": [
 
               ],
@@ -1146,7 +1150,7 @@
             },
             {
               "name": "eventType",
-              "description": "AppContext event type, which will be set into the AppContext created when user clicks the notification\neventType must be camelCase alphanumeric",
+              "description": "Context event type set in the Context when the user clicks and launches the notification.\neventType must be one of the enum values of EventType.",
               "args": [
 
               ],
@@ -1160,7 +1164,7 @@
             },
             {
               "name": "eventTypeId",
-              "description": "AppContext event type id, which will be set into the AppContext created when user clicks the notification",
+              "description": "Context event type id set in the Context when the user clicks and launches the notification",
               "args": [
 
               ],
@@ -1174,7 +1178,7 @@
             },
             {
               "name": "recipient",
-              "description": "List of uuid for the recipient",
+              "description": "List of the recipient's (ie. SLS user) UUID.",
               "args": [
 
               ],
@@ -1206,13 +1210,23 @@
           "possibleTypes": null
         },
         {
+          "kind": "SCALAR",
+          "name": "ID",
+          "description": "Built-in ID",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "OBJECT",
           "name": "Event",
-          "description": "Event information when App is launched.\nVarious Scenarios:\nLaunch App from <Subject Group> page\nOpen <Assignment> page (from Assignment Listing page)\nOpen <Task> page (from either Dashboard or Notification)",
+          "description": "Event information when App is launched.\nEvent is generated when:\n1. LAUNCH_APP: Launch App from <Subject Group> page\n2. LAUNCH_ASSIGNMENT: Open <Assignment> page (from Assignment Listing page)\n3. LAUNCH_TASK: Open <Task> page (from either Dashboard or Notification)",
           "fields": [
             {
               "name": "type",
-              "description": "e.g. \"Launch_App\", \"Launch_Assignment\", \"Launch_Task\"",
+              "description": "The type of event associated with the context.",
               "args": [
 
               ],
@@ -1230,7 +1244,7 @@
             },
             {
               "name": "typeId",
-              "description": "e.g. UUID of subjectGroup / Assignment / Task",
+              "description": "UUID associated with the EventType, ie. SubjectGroup / Assignment / Task",
               "args": [
 
               ],
@@ -1242,6 +1256,20 @@
                   "name": "UUID",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "launchKey",
+              "description": "The launchKey of event associated with the context.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1257,12 +1285,12 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "AssignmentInput",
-          "description": "",
+          "description": "Input type for mutations associated with assignment.",
           "fields": null,
           "inputFields": [
             {
               "name": "title",
-              "description": "title",
+              "description": "Title of assignment.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1292,27 +1320,27 @@
             },
             {
               "name": "createdBy",
-              "description": "",
+              "description": "User UUID (ie. a teacher) who has created this assignment.",
               "type": {
                 "kind": "SCALAR",
-                "name": "ID",
+                "name": "UUID",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
               "name": "modifiedBy",
-              "description": "",
+              "description": "User UUID (ie. a teacher) who have made changes to this assignment.",
               "type": {
                 "kind": "SCALAR",
-                "name": "ID",
+                "name": "UUID",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
               "name": "type",
-              "description": "",
+              "description": "Type of assignment, reflected in the SLS assignment page.",
               "type": {
                 "kind": "ENUM",
                 "name": "AssignmentResourceType",
@@ -1322,21 +1350,25 @@
             },
             {
               "name": "assignees",
-              "description": "",
+              "description": "User UUIDs of students who are assigned to this assignment.\nOn successful creation of assignment, corresponding tasks for each user will be created.",
               "type": {
                 "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "UUID",
+                    "ofType": null
+                  }
                 }
               },
               "defaultValue": null
             },
             {
               "name": "subjectGroupUuid",
-              "description": "",
+              "description": "UUID of SubjectGroup that the assignment is assigned to.",
               "type": {
                 "kind": "SCALAR",
                 "name": "UUID",
@@ -1352,12 +1384,12 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "NotificationInput",
-          "description": "",
+          "description": "Input type to create notification.",
           "fields": null,
           "inputFields": [
             {
               "name": "message",
-              "description": "Notification message, max length: 300",
+              "description": "Notification message, maximum length of 300 characters.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1371,7 +1403,7 @@
             },
             {
               "name": "scope",
-              "description": "Notification scope, i.e., this notification is targeted to a subject group, or a school",
+              "description": "Scope in which notification is sent in the context from. Examples include global, school or subject group.\nThis is for future extensibility and SUBJECT_GROUP should be selected.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1385,7 +1417,7 @@
             },
             {
               "name": "scopeId",
-              "description": "Scope id, if scope is SUBJECT_GROUP, the scope id is subject group uuid; if scope is SCHOOL, the scope id is school code",
+              "description": "Id of scope (for NotificationScope of SUBJECT_GROUP, this should be set to SubjectGroup UUID).",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1399,7 +1431,7 @@
             },
             {
               "name": "eventType",
-              "description": "AppContext event type, which will be set into the AppContext created when user clicks the notification\neventType must be alphanumeric, max length: 50",
+              "description": "Context event type set in the Context when the user clicks and launches the notification.\neventType must be one of the enum values of EventType.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1409,7 +1441,7 @@
             },
             {
               "name": "eventTypeId",
-              "description": "AppContext event type id, which will be set into the AppContext created when user clicks the notification",
+              "description": "Context event type id set in the Context when the user clicks and launches the notification",
               "type": {
                 "kind": "SCALAR",
                 "name": "UUID",
@@ -1419,7 +1451,7 @@
             },
             {
               "name": "recipient",
-              "description": "List of uuid for the recipient",
+              "description": "List of the recipient's (ie. SLS user) UUID.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1431,7 +1463,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "SCALAR",
-                      "name": "ID"
+                      "name": "UUID"
                     }
                   }
                 }
@@ -1476,19 +1508,19 @@
           "enumValues": [
             {
               "name": "NEW",
-              "description": "New task",
+              "description": "Student has not started on the task.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "IN_PROGRESS",
-              "description": "Work in progress",
+              "description": "Student has started, but not completed the task.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "COMPLETED",
-              "description": "Task is completed",
+              "description": "Student has completed the task.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -1652,13 +1684,13 @@
           "enumValues": [
             {
               "name": "CLASS_SERIAL_NO",
-              "description": "sort students by class serial number",
+              "description": "Sort students by class serial number",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "NAME",
-              "description": "sort students by name",
+              "description": "Sort students by name",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -1675,19 +1707,19 @@
           "enumValues": [
             {
               "name": "LAUNCH_APP",
-              "description": "Launch Application.",
+              "description": "Launch application.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "LAUNCH_ASSIGNMENT",
-              "description": "Launch Assignment. E.g. Teacher open assignment",
+              "description": "Launch assignment. E.g. Teacher open assignment.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "LAUNCH_TASK",
-              "description": "Launch Task. E.g. Student open task from Dashboard",
+              "description": "Launch task. E.g. Student open task from dashboard.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -2641,7 +2673,7 @@
   },
   "errors": [
     {
-      "message": "Exception while fetching data (/__schema/types[8]/fields[5]/args[1]/defaultValue) : Invalid input for Enum 'StudentSortBy'. Unknown value 'CLASS_SERIAL_NO'",
+      "message": "Exception while fetching data (/__schema/types[7]/fields[5]/args[1]/defaultValue) : Invalid input for Enum 'StudentSortBy'. Unknown value 'CLASS_SERIAL_NO'",
       "locations": [
         {
           "line": 58,
@@ -2651,7 +2683,7 @@
       "path": [
         "__schema",
         "types",
-        8,
+        7,
         "fields",
         5,
         "args",
