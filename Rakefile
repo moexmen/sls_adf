@@ -27,10 +27,10 @@ namespace :sls_adf do
 
     Dotenv.load
     SlsAdf.configure do |c|
-      c.graphql_url = ENV.fetch('GRAPHQL_URL')
-      c.get_token_url = ENV.fetch('GET_TOKEN_URL')
-      c.client_id = ENV.fetch('CLIENT_ID')
-      c.client_secret = ENV.fetch('CLIENT_SECRET')
+      c.graphql_url = ENV.fetch('SLS_ADF_GRAPHQL_URL')
+      c.get_token_url = ENV.fetch('SLS_ADF_GET_TOKEN_URL')
+      c.client_id = ENV.fetch('SLS_ADF_CLIENT_ID')
+      c.client_secret = ENV.fetch('SLS_ADF_CLIENT_SECRET')
     end
 
     schema_location = File.join(File.dirname(__FILE__), 'lib/sls_adf/schema/schema.json')
