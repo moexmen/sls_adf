@@ -83,9 +83,9 @@ you may:
 
 Key Commands:
  - `bin/setup`: Install dependencies and copy `.env` file.
- - `bin/console`: Run an interactive prompt (requires configuration on .`env` file)
+ - `bin/console`: Run an interactive prompt (requires configuration on .`env` file).
  - `rake spec` or `bundle exec rspec`: Run tests.
- - `rake sls_adf:update_schema`: Update the SLS ADF GraphQL schema.
+ - `rake sls_adf:update_schema`: Update the SLS ADF GraphQL schema (requires configuration on .`env` file).
 
 ## Contributing
 
