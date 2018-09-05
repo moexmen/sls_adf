@@ -23,6 +23,3 @@ module SlsAdf #:nodoc:
     @client ||= GraphQL::Client.new(schema: schema, execute: adapter)
   end
 end
-
-require 'sls_adf/query'
-require 'sls_adf/mutation'
