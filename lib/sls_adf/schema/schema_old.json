@@ -16,7 +16,7 @@
           "fields": [
             {
               "name": "context",
-              "description": "Retrieve context information via Context ID which is provided by SLS\nVarious Scenarios:\n1. LAUNCH_APP: Launch App from <Group> page\n2. LAUNCH_ASSIGNMENT: Open <Assignment> page (from Assignment Listing page)\n3. LAUNCH_TASK: Open <Task> page (from either Dashboard or Notification)\n\nContext will expire in 10 seconds.\n\nErrors:\n1. Authorization header is invalid\n2. Context does not exist\n3. Context has expired\n",
+              "description": "Retrieve context information via Context ID which is provided by SLS\nVarious Scenarios:\n1. LAUNCH_APP: Launch App from <Subject Group> page\n2. LAUNCH_ASSIGNMENT: Open <Assignment> page (from Assignment Listing page)\n3. LAUNCH_TASK: Open <Task> page (from either Dashboard or Notification)\n\nContext will expire in 10 seconds.\n\nErrors:\n1. Authorization header is invalid\n2. Context does not exist\n3. Context has expired\n",
               "args": [
                 {
                   "name": "uuid",
@@ -69,8 +69,8 @@
               "deprecationReason": null
             },
             {
-              "name": "group",
-              "description": "Retrieve subject group information via group UUID.\n\nErrors:\n1. Authorization header is invalid\n2. Subject group does not exist\n3. App is not installed for this group\n",
+              "name": "subjectGroup",
+              "description": "Retrieve subject group information via subject group UUID.\n\nErrors:\n1. Authorization header is invalid\n2. Subject group does not exist\n3. App is not installed for this subject group\n",
               "args": [
                 {
                   "name": "uuid",
@@ -89,7 +89,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "Group",
+                "name": "SubjectGroup",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -399,7 +399,7 @@
           "fields": [
             {
               "name": "uuid",
-              "description": "Login Id of user, unique identifier of user.",
+              "description": "UUId of user, unique identifier of user.",
               "args": [
 
               ],
@@ -452,20 +452,6 @@
               "deprecationReason": null
             },
             {
-              "name": "email",
-              "description": "Email of user",
-              "args": [
-
-              ],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "level",
               "description": "Level that student is in, e.g. Secondary 1. Applicable to student only (Null for teacher).",
               "args": [
@@ -494,8 +480,8 @@
               "deprecationReason": null
             },
             {
-              "name": "groups",
-              "description": "Active (ie. current year) groups that user is in.\nOnly returns groups that have this app installed.\nFor Teacher, it is the Groups that this teacher is teaching\nFor Student, it is the Groups to which this student belongs\n\nfirst: returns the first N groups, default to 20 if not specified.",
+              "name": "subjectGroups",
+              "description": "Active (ie. current year) subject groups that user is in.\nOnly returns subject groups that have this app installed.\nFor Teacher, it is the SubjectGroups that this teacher is teaching\nFor Student, it is the SubjectGroups to which this student belongs\n\nfirst: returns the first N subject groups, default to 20 if not specified.",
               "args": [
                 {
                   "name": "first",
@@ -516,10 +502,24 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "Group",
+                    "name": "SubjectGroup",
                     "ofType": null
                   }
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "email",
+              "description": "Email of user",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -554,12 +554,12 @@
         },
         {
           "kind": "OBJECT",
-          "name": "Group",
-          "description": "A group of teachers and students",
+          "name": "SubjectGroup",
+          "description": "A group of teachers and students from the same level and class taking a subject (e.g. Secondary 2-A Biology)",
           "fields": [
             {
               "name": "uuid",
-              "description": "UUID of the Group.",
+              "description": "UUID of the SubjectGroup.",
               "args": [
 
               ],
@@ -576,8 +576,8 @@
               "deprecationReason": null
             },
             {
-              "name": "name",
-              "description": "Name of the Group used in VLE.",
+              "name": "code",
+              "description": "Identifier of SubjectGroup for students and teachers, e.g. S1-A.",
               "args": [
 
               ],
@@ -594,36 +594,8 @@
               "deprecationReason": null
             },
             {
-              "name": "code",
-              "description": "Identifier of Group for students and teachers, e.g. S1-A.",
-              "args": [
-
-              ],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "subject",
-              "description": "Subject of the Group: e.g. English Language.",
-              "args": [
-
-              ],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "active",
-              "description": "Whether the Group is currently active.",
+              "description": "Subject of the SubjectGroup: e.g. English Language.",
               "args": [
 
               ],
@@ -632,7 +604,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Boolean",
+                  "name": "String",
                   "ofType": null
                 }
               },
@@ -646,16 +618,20 @@
 
               ],
               "type": {
-                "kind": "ENUM",
-                "name": "Level",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "Level",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "teachers",
-              "description": "Teacher(s) who teaches this Group.",
+              "description": "Teacher(s) who teaches this SubjectGroup.",
               "args": [
                 {
                   "name": "first",
@@ -669,19 +645,12 @@
                 }
               ],
               "type": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "User"
-                    }
-                  }
+                  "kind": "OBJECT",
+                  "name": "User",
+                  "ofType": null
                 }
               },
               "isDeprecated": false,
@@ -689,7 +658,7 @@
             },
             {
               "name": "students",
-              "description": "Students who belong to this Group.\n\nfirst: returns the first N students, default to 0 if not specified.\nsortField: sorts students by the field, default to class serial no. if not specified.",
+              "description": "Students who belong to this SubjectGroup.\n\nfirst: returns the first N students, default to 0 if not specified.\nsortField: sorts students by the field, default to class serial no. if not specified.",
               "args": [
                 {
                   "name": "first",
@@ -713,19 +682,12 @@
                 }
               ],
               "type": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "User"
-                    }
-                  }
+                  "kind": "OBJECT",
+                  "name": "User",
+                  "ofType": null
                 }
               },
               "isDeprecated": false,
@@ -733,7 +695,7 @@
             },
             {
               "name": "assignments",
-              "description": "Assignments that have been assigned to this Group.\n\nfirst: returns the first N assignments, default to 0 if not specified.",
+              "description": "Assignments that have been assigned to this group.\n\nfirst: returns the first N assignments, default to 0 if not specified.",
               "args": [
                 {
                   "name": "first",
@@ -747,19 +709,12 @@
                 }
               ],
               "type": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "Assignment"
-                    }
-                  }
+                  "kind": "OBJECT",
+                  "name": "Assignment",
+                  "ofType": null
                 }
               },
               "isDeprecated": false,
@@ -774,19 +729,9 @@
           "possibleTypes": null
         },
         {
-          "kind": "SCALAR",
-          "name": "Boolean",
-          "description": "Built-in Boolean",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
           "kind": "OBJECT",
           "name": "Assignment",
-          "description": "A piece of work that a teacher allocates/assigns to one or more students in a Group.\nEach assignment has a collection of tasks, each corresponding to a student in the assignment.\nIt is not mandatory for all students in the Group to have a task for each assignment.",
+          "description": "A piece of work that a teacher allocates/assigns to one or more students in a SubjectGroup.\nEach assignment has a collection of tasks, each corresponding to a student in the assignment.\nIt is not mandatory for all students in the SubjectGroup to have a task for each assignment.",
           "fields": [
             {
               "name": "uuid",
@@ -907,7 +852,7 @@
               "deprecationReason": null
             },
             {
-              "name": "group",
+              "name": "subjectGroup",
               "description": "Subject group that this resource has been assigned to.",
               "args": [
 
@@ -917,7 +862,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "Group",
+                  "name": "SubjectGroup",
                   "ofType": null
                 }
               },
@@ -1169,28 +1114,36 @@
             },
             {
               "name": "scope",
-              "description": "Scope in which notification is sent in the context from. Examples include global, school or subject group.\nThis is for future extensibility and GROUP should be selected.",
+              "description": "Scope in which notification is sent in the context from. Examples include global, school or subject group.\nThis is for future extensibility and SUBJECT_GROUP should be selected.",
               "args": [
 
               ],
               "type": {
-                "kind": "ENUM",
-                "name": "NotificationScope",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "NotificationScope",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "scopeId",
-              "description": "Id of scope (for NotificationScope of GROUP, this should be set to Group UUID).",
+              "description": "Id of scope (for NotificationScope of SUBJECT_GROUP, this should be set to SubjectGroup UUID).",
               "args": [
 
               ],
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1240,7 +1193,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "SCALAR",
-                      "name": "UUID"
+                      "name": "ID"
                     }
                   }
                 }
@@ -1257,9 +1210,19 @@
           "possibleTypes": null
         },
         {
+          "kind": "SCALAR",
+          "name": "ID",
+          "description": "Built-in ID",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "OBJECT",
           "name": "Event",
-          "description": "Event information when App is launched.\nEvent is generated when:\n1. LAUNCH_APP: Launch App from <Group> page\n2. LAUNCH_ASSIGNMENT: Open <Assignment> page (from Assignment Listing page)\n3. LAUNCH_TASK: Open <Task> page (from either Dashboard or Notification)",
+          "description": "Event information when App is launched.\nEvent is generated when:\n1. LAUNCH_APP: Launch App from <Subject Group> page\n2. LAUNCH_ASSIGNMENT: Open <Assignment> page (from Assignment Listing page)\n3. LAUNCH_TASK: Open <Task> page (from either Dashboard or Notification)",
           "fields": [
             {
               "name": "type",
@@ -1281,7 +1244,7 @@
             },
             {
               "name": "typeId",
-              "description": "UUID associated with the EventType, ie. Group / Assignment / Task",
+              "description": "UUID associated with the EventType, ie. SubjectGroup / Assignment / Task",
               "args": [
 
               ],
@@ -1404,8 +1367,8 @@
               "defaultValue": null
             },
             {
-              "name": "groupUuid",
-              "description": "UUID of Group that the assignment is assigned to.",
+              "name": "subjectGroupUuid",
+              "description": "UUID of SubjectGroup that the assignment is assigned to.",
               "type": {
                 "kind": "SCALAR",
                 "name": "UUID",
@@ -1440,21 +1403,29 @@
             },
             {
               "name": "scope",
-              "description": "Scope in which notification is sent in the context from. Examples include global, school or subject group.\nThis is for future extensibility and GROUP should be selected.",
+              "description": "Scope in which notification is sent in the context from. Examples include global, school or subject group.\nThis is for future extensibility and SUBJECT_GROUP should be selected.",
               "type": {
-                "kind": "ENUM",
-                "name": "NotificationScope",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "NotificationScope",
+                  "ofType": null
+                }
               },
               "defaultValue": null
             },
             {
               "name": "scopeId",
-              "description": "Id of scope (for NotificationScope of GROUP, this should be set to Group UUID).",
+              "description": "Id of scope (for NotificationScope of SUBJECT_GROUP, this should be set to SubjectGroup UUID).",
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "defaultValue": null
             },
@@ -1565,7 +1536,7 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "GROUP",
+              "name": "SUBJECT_GROUP",
               "description": "",
               "isDeprecated": false,
               "deprecationReason": null
@@ -2322,6 +2293,16 @@
           "possibleTypes": null
         },
         {
+          "kind": "SCALAR",
+          "name": "Boolean",
+          "description": "Built-in Boolean",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "OBJECT",
           "name": "__EnumValue",
           "description": null,
@@ -2692,7 +2673,7 @@
   },
   "errors": [
     {
-      "message": "Exception while fetching data (/__schema/types[7]/fields[7]/args[1]/defaultValue) : Invalid input for Enum 'StudentSortBy'. Unknown value 'CLASS_SERIAL_NO'",
+      "message": "Exception while fetching data (/__schema/types[7]/fields[5]/args[1]/defaultValue) : Invalid input for Enum 'StudentSortBy'. Unknown value 'CLASS_SERIAL_NO'",
       "locations": [
         {
           "line": 58,
@@ -2704,7 +2685,7 @@
         "types",
         7,
         "fields",
-        7,
+        5,
         "args",
         1,
         "defaultValue"
