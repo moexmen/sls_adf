@@ -13,7 +13,7 @@ module SlsAdf #:nodoc:
 
   def self.schema
     @schema ||= begin
-      path = ENV['SLS_ENV'] == 'dev' ? 'sls_adf/schema/schema.json' : 'sls_adf/schema/schema_old.json'
+      path = 'sls_adf/schema/schema.json'
       schema_path = File.join(File.dirname(__FILE__), path)
       GraphQL::Client.load_schema(schema_path)
     end
