@@ -148,6 +148,63 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "allGroups",
+              "description": "Retrieve all groups installed to the App.\n\nIf changedSince is provided, only groups that changed since the time provided will be returned.\nIf schoolCode is provided, only groups in the school will be returned.\n",
+              "args": [
+                {
+                  "name": "changedSince",
+                  "description": "",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "schoolCode",
+                  "description": "",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": "500000"
+                },
+                {
+                  "name": "after",
+                  "description": "",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "GroupsConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -161,6 +218,36 @@
           "kind": "SCALAR",
           "name": "UUID",
           "description": "Unique identifier",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "DateTime",
+          "description": "Date and time format, format: ISO_OFFSET_DATE_TIME, e.g.,2007-12-03T10:15:30+08:00",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "String",
+          "description": "Built-in String",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "Int",
+          "description": "Built-in Int",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -452,6 +539,24 @@
               "deprecationReason": null
             },
             {
+              "name": "school",
+              "description": "School of user",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "School",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "email",
               "description": "Email of user",
               "args": [
@@ -533,26 +638,6 @@
           "possibleTypes": null
         },
         {
-          "kind": "SCALAR",
-          "name": "String",
-          "description": "Built-in String",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "SCALAR",
-          "name": "Int",
-          "description": "Built-in Int",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
           "kind": "OBJECT",
           "name": "Group",
           "description": "A group of teachers and students",
@@ -617,6 +702,24 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "school",
+              "description": "School of the Group",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "School",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -709,7 +812,7 @@
                     "name": "StudentSortBy",
                     "ofType": null
                   },
-                  "defaultValue": null
+                  "defaultValue": "CLASS_SERIAL_NO"
                 }
               ],
               "type": {
@@ -760,6 +863,24 @@
                       "name": "Assignment"
                     }
                   }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "lastUpdated",
+              "description": "The date time when the Group last changed.\nThe field is updated when Group name, membership or status is changed",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
                 }
               },
               "isDeprecated": false,
@@ -954,22 +1075,26 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "openInNewTab",
+              "description": "Whether the assignment will launch in a new tab or within SLS's frame\nTrue if new tab, False if otherwise.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
           "interfaces": [
 
           ],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "SCALAR",
-          "name": "DateTime",
-          "description": "Date and time format, format: ISO_OFFSET_DATE_TIME, e.g.,2007-12-03T10:15:30+08:00",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1089,13 +1214,9 @@
 
               ],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1113,6 +1234,77 @@
                   "kind": "ENUM",
                   "name": "TaskStatus",
                   "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "GroupsConnection",
+          "description": "",
+          "fields": [
+            {
+              "name": "totalCount",
+              "description": "",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pageInfo",
+              "description": "",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "edges",
+              "description": "",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "GroupsEdge",
+                    "ofType": null
+                  }
                 }
               },
               "isDeprecated": false,
@@ -1247,6 +1439,20 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "openInNewTab",
+              "description": "Whether the notification, when clicked, will launch in a new tab or within SLS's frame\nTrue if new tab, False if otherwise.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -1307,6 +1513,149 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "School",
+          "description": "",
+          "fields": [
+            {
+              "name": "code",
+              "description": "School code",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "The full name of school",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PageInfo",
+          "description": "",
+          "fields": [
+            {
+              "name": "endCursor",
+              "description": "The cursor value from the last node in the returned page.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "hasNextPage",
+              "description": "Whether there is next page available.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "GroupsEdge",
+          "description": "",
+          "fields": [
+            {
+              "name": "cursor",
+              "description": "",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "node",
+              "description": "",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Group",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1412,6 +1761,16 @@
                 "ofType": null
               },
               "defaultValue": null
+            },
+            {
+              "name": "openInNewTab",
+              "description": "When Student/Teacher launch this assignment, it will be opened within SLS or new tab based on this setting.\nIf this value is not provided, it will default to application's setting.\nOnce assignment has started, this value can no longer be updated and error will be returned.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
             }
           ],
           "interfaces": null,
@@ -1496,6 +1855,16 @@
                     }
                   }
                 }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "openInNewTab",
+              "description": "When Student/Teacher launch this notification, it will be opened within SLS or new tab based on this setting.\nIf this value is not provided, it will default to application's setting.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
               },
               "defaultValue": null
             }
@@ -2574,61 +2943,67 @@
             },
             {
               "name": "SCHEMA",
-              "description": "Indicates the directive is valid on a schema IDL definition.",
+              "description": "Indicates the directive is valid on a schema SDL definition.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "SCALAR",
-              "description": "Indicates the directive is valid on a scalar IDL definition.",
+              "description": "Indicates the directive is valid on a scalar SDL definition.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "OBJECT",
-              "description": "Indicates the directive is valid on an object IDL definition.",
+              "description": "Indicates the directive is valid on an object SDL definition.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "FIELD_DEFINITION",
-              "description": "Indicates the directive is valid on a field IDL definition.",
+              "description": "Indicates the directive is valid on a field SDL definition.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "ARGUMENT_DEFINITION",
-              "description": "Indicates the directive is valid on a field argument IDL definition.",
+              "description": "Indicates the directive is valid on a field argument SDL definition.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "INTERFACE",
-              "description": "Indicates the directive is valid on an interface IDL definition.",
+              "description": "Indicates the directive is valid on an interface SDL definition.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "UNION",
-              "description": "Indicates the directive is valid on an union IDL definition.",
+              "description": "Indicates the directive is valid on an union SDL definition.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "ENUM",
-              "description": "Indicates the directive is valid on an enum IDL definition.",
+              "description": "Indicates the directive is valid on an enum SDL definition.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ENUM_VALUE",
+              "description": "Indicates the directive is valid on an enum value SDL definition.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "INPUT_OBJECT",
-              "description": "Indicates the directive is valid on an input object IDL definition.",
+              "description": "Indicates the directive is valid on an input object SDL definition.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "INPUT_FIELD_DEFINITION",
-              "description": "Indicates the directive is valid on an input object field IDL definition.",
+              "description": "Indicates the directive is valid on an input object field SDL definition.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -2686,30 +3061,19 @@
               "defaultValue": null
             }
           ]
+        },
+        {
+          "name": "defer",
+          "description": "This directive allows results to be deferred during execution",
+          "locations": [
+            "FIELD"
+          ],
+          "args": [
+
+          ]
         }
       ]
     }
   },
-  "errors": [
-    {
-      "message": "Exception while fetching data (/__schema/types[7]/fields[7]/args[1]/defaultValue) : Invalid input for Enum 'StudentSortBy'. Unknown value 'CLASS_SERIAL_NO'",
-      "locations": [
-        {
-          "line": 58,
-          "column": 5
-        }
-      ],
-      "path": [
-        "__schema",
-        "types",
-        7,
-        "fields",
-        7,
-        "args",
-        1,
-        "defaultValue"
-      ]
-    }
-  ],
   "http_status": 200
 }
