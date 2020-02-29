@@ -34,7 +34,7 @@ GEM
     json (2.1.0)
     minitest (5.11.3)
     public_suffix (3.0.1)
-    rake (10.5.0)
+    rake (13.0.1)
     rdoc (6.0.0)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
@@ -71,7 +71,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.16)
   dotenv (~> 2.2)
-  rake (~> 10.0)
+  rake (~> 13.0)
   rdoc
   rspec (~> 3.0)
   simplecov
