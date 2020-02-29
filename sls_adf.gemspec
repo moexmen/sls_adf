@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'bundler', '~> 1.16'
   s.add_development_dependency 'dotenv', '~> 2.2'
-  s.add_development_dependency 'rake', '~> 10.0'
+  s.add_development_dependency 'rake', '~> 13.0'
   s.add_development_dependency 'rdoc'
   s.add_development_dependency 'rspec', '~> 3.0'
   s.add_development_dependency 'simplecov'
